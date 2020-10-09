@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-function App() {
+import ThemeProvider from './ThemeProvider';
+
+import NavBarTop from './components/NavBarTop'
+
+
+//SECCIONES
+import { Home } from './view/Home';
+import MyTask from './view/MyTask.jsx';
+import Tasks from './view/Tasks.jsx'
+import { NotFound } from './view/NotFound';
+
+
+import { Container, Row, Col } from 'react-bootstrap';
+const App = () => {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <ThemeProvider>
+
+        <BrowserRouter>
+            <Row>
+              <Col><NavBarTop/></Col>
+            </Row>
+            <Row>
+              <Col>
+                <Switch>
+                  {/* <Redirect from='/hola' to='/home' /> */}
+            
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/mis-tareas" component={MyTask} />
+                  <Route exact path="/tareas" component={Tasks} />
+
+                  <Route render={NotFound} />
+
+                
+                </Switch>
+              </Col>
+          </Row>
+        </BrowserRouter>
+        
+      </ThemeProvider>
+    </Container>
   );
 }
+
+
+
+// ---- COMPARTIR ESTADO ----
+// FLUX 
+// CONTEXT API 
+//  array task 
 
 export default App;
